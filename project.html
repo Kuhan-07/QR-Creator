@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator</title>
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: white;
+        margin-bottom: 20px;
+        animation: fadeInDown 1s ease-in-out;
+    }
+    .container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        animation: fadeInUp 1s ease-in-out;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #86a8e7;
+        border-radius: 8px;
+        outline: none;
+        font-size: 16px;
+        margin-bottom: 10px;
+        transition: 0.3s;
+    }
+    input:focus {
+        border-color: #7f7fd5;
+        box-shadow: 0 0 8px rgba(127,127,213,0.6);
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(90deg, #7f7fd5, #86a8e7);
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+    }
+    button:hover {
+        transform: scale(1.05);
+        background: linear-gradient(90deg, #86a8e7, #91eae4);
+    }
+    #qrcode {
+        margin-top: 20px;
+        animation: zoomIn 0.5s ease-in-out;
+    }
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes zoomIn {
+        from { transform: scale(0.5); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+
+<h1>QR Code Generator</h1>
+<div class="container">
+    <input type="text" id="text" placeholder="Enter your text or link...">
+    <button onclick="generateQR()">Generate QR</button>
+    <div id="qrcode"></div>
+</div>
+
+<script>
+function generateQR() {
+    const qrContainer = document.getElementById("qrcode");
+    qrContainer.innerHTML = ""; // Clear old QR
+    let text = document.getElementById("text").value;
+    if (text.trim() === "") {
+        alert("Please enter some text!");
+        return;
+    }
+    new QRCode(qrContainer, {
+        text: text,
+        width: 200,
+        height: 200,
+        colorDark: "#000",
+        colorLight: "#fff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+}
+</script>
+
+</body>
+</html>
+
